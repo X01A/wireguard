@@ -3,9 +3,11 @@
 - name: reboot machine
   reboot:
     reboot_timeout: 3600
+  when: test_mode is not defined
 
 - name: restart wireguard
   systemd:
     state: restarted
     daemon_reload: yes
-    name: wg-quick@{{interface_name}}
+    name: "wg-quick@{{interface_name}}"
+  when: test_mode is not defined

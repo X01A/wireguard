@@ -1,5 +1,8 @@
 ---
 - hosts: localhost
   remote_user: root
+  vars:
+    inte_ip: 10.255.255.1
+    test_mode: true
   roles:
     - wireguard

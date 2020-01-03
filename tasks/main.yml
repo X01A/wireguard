@@ -7,3 +7,24 @@
 
 - name: Flush deps handler
   meta: flush_handlers
+
+- name: Add wireguard module
+  modprobe:
+    name: wireguard
+    state: present
+
+- import_tasks: assert.yml
+  tags:
+    - check
+  when: test_mode is defined
+
+- import_tasks: config.yml
+  tags:
+    - config
+
+- name: enable wireguard interface service
+  systemd:
+    daemon_reload: yes
+    state: started
+    enabled: yes
+    name: "wg-quick@{{interface_name}}"

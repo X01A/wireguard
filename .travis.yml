@@ -1,7 +1,22 @@
 sudo: required
 
+cache:
+  directories:
+  - docker_images
+
+before_install:
+- docker load -i docker_images/images.tar || true
+
+before_cache:
+- docker save -o docker_images/images.tar $(docker images -a -q)
+
 services:
 - docker
 
 script:
+- sudo add-apt-repository ppa:wireguard/wireguard -y
+- sudo apt-get update
+- sudo apt-get install wireguard-dkms wireguard-tools linux-headers-$(uname -r)
+
 - docker build -t wireguard-debian-9 -f tests/Debian-9.Dockerfile .
+- docker run --rm --privileged -v /lib/modules/:/lib/modules/ -v $(pwd):/etc/ansible/roles/wireguard/ wireguard-debian-9

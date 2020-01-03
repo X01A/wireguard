@@ -1,0 +1,11 @@
+---
+- name: Check wg-quick command exsit
+  shell: wg-quick help
+  register: wg_quick_command
+  ignore_errors: yes
+
+- name: Assert return code 0
+  assert:
+    that:
+      - "wg_quick_command.rc == 0"
+    msg: "wg-quick must exsit"
