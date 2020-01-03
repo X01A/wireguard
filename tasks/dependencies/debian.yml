@@ -1,0 +1,21 @@
+---
+- name: Add debian unstable repository
+  apt_repository:
+    repo: deb http://deb.debian.org/debian/ unstable main
+    state: present
+    filename: unstable
+
+- name: Set unstable priority
+  blockinfile:
+    path: /etc/apt/preferences.d/limit-unstable
+    create: yes
+    block: |
+      Package: *
+      Pin: release a=unstable
+      Pin-Priority: 90
+
+- name: Install wireguard and tools
+  apt:
+    state: present
+    name: wireguard
+    update_cache: yes

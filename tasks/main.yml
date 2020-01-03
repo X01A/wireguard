@@ -1,2 +1,9 @@
 ---
-# tasks file for wireguard
+- include: dependencies/{{ ansible_distribution | lower }}.yml
+  tags:
+    - install
+    - deps
+    when: ansible_local.wireguard is not defined
+
+- name: Flush deps handler
+  meta: flush_handlers

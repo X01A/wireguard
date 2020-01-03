@@ -1,2 +1,12 @@
 ---
-# defaults file for wireguard
+# Wireguard interface MTU
+mtu: 1420
+
+# Wireguard network cidr
+ip_cidr_range: 16
+
+# Wireguard will listen in this port
+listen_port: 32091
+
+# Wireguard will use this as interface name
+interface_name: wg0
