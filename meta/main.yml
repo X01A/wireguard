@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Indexyz
+  description: Automation wireguard mesh private networking
+  company: X01A
+
+  license: MIT
+
+  min_ansible_version: 1.2
+
+  platforms:
+  - name: Debian
+    versions:
+    - 9
+
+  galaxy_tags:
+  - networking
+  - wireguard
+
+dependencies: []
