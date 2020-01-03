@@ -1,11 +1,11 @@
 ---
 # handlers file for wireguard
 - name: reboot machine
-reboot:
-  reboot_timeout: 3600
+  reboot:
+    reboot_timeout: 3600
 
 - name: restart wireguard
-systemd:
-  state: restarted
-  daemon_reload: yes
-  name: wg-quick@{{interface_name}}
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: wg-quick@{{interface_name}}
