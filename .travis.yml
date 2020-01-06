@@ -13,16 +13,16 @@ before_cache:
 services:
 - docker
 
-env:
-- TEST_ARGS="--rm --privileged -v /lib/modules/:/lib/modules/ .:/etc/ansible/roles/wireguard/"
 
 script:
 - sudo add-apt-repository ppa:wireguard/wireguard -y
 - sudo apt-get update
 - sudo apt-get install wireguard-dkms wireguard-tools linux-headers-$(uname -r)
 
-- docker build -t wireguard-debian-9 -f tests/Debian-9.Dockerfile .
-- docker run $TEST_ARGS wireguard-debian-9
+- export RUN_ARGS="--rm --privileged -v /lib/modules/:/lib/modules/ -v $(pwd):/etc/ansible/roles/wireguard/"
 
-- docker build -t wireguard-centos-7 tests/CentOS-7.Dockerfile .
-- docker run $TEST_ARGS wireguard-centos-7
+- docker build -t wireguard-debian-9 -f tests/Debian-9.Dockerfile .
+- docker run $RUN_ARGS wireguard-debian-9
+
+- docker build -t wireguard-centos-7 -f tests/CentOS-7.Dockerfile .
+- docker run $RUN_ARGS wireguard-centos-7
