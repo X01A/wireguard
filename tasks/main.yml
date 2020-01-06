@@ -21,10 +21,3 @@
 - import_tasks: config.yml
   tags:
     - config
-
-- name: enable wireguard interface service
-  systemd:
-    daemon_reload: yes
-    state: started
-    enabled: yes
-    name: "wg-quick@{{interface_name}}"
