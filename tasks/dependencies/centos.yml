@@ -1,0 +1,25 @@
+---
+  - name: Download wireguard.repo
+    get_url:
+      url: https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo
+      dest: /etc/yum.repos.d/wireguard.repo
+      mode: '0440'
+
+  - name: Install the latest version of epel-release
+    yum:
+      name: epel-release
+      state: latest
+
+  - name: Install wireguard tools and dkms
+    yum:
+      name:
+      - wireguard-dkms
+      - wireguard-tools
+      state: present
+    notify:
+      - reboot machine
+
+  - name: upgrade all packages
+    yum:
+      name: '*'
+      state: latest
