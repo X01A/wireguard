@@ -26,3 +26,6 @@ script:
 
 - docker build -t wireguard-centos-7 -f tests/CentOS-7.Dockerfile .
 - docker run $RUN_ARGS wireguard-centos-7
+
+notifications:
+ webhooks: https://galaxy.ansible.com/api/v1/notifications/
