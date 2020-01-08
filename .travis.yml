@@ -1,18 +1,7 @@
 sudo: required
 
-cache:
-  directories:
-  - docker_images
-
-before_install:
-- docker load -i docker_images/images.tar || true
-
-before_cache:
-- docker save -o docker_images/images.tar $(docker images -a -q)
-
 services:
 - docker
-
 
 script:
 - sudo add-apt-repository ppa:wireguard/wireguard -y
@@ -20,12 +9,10 @@ script:
 - sudo apt-get install wireguard-dkms wireguard-tools linux-headers-$(uname -r)
 
 - export RUN_ARGS="--rm --privileged -v /lib/modules/:/lib/modules/ -v $(pwd):/etc/ansible/roles/wireguard/"
+- export PLAYBOOK="/etc/ansible/roles/wireguard/tests/test.yml"
 
-- docker build -t wireguard-debian-9 -f tests/Debian-9.Dockerfile .
-- docker run $RUN_ARGS wireguard-debian-9
-
-- docker build -t wireguard-centos-7 -f tests/CentOS-7.Dockerfile .
-- docker run $RUN_ARGS wireguard-centos-7
+- docker run $RUN_ARGS indexyz/ansible:debian-9 $PLAYBOOK
+- docker run $RUN_ARGS indexyz/ansible:centos-7 $PLAYBOOK
 
 notifications:
  webhooks: https://galaxy.ansible.com/api/v1/notifications/
