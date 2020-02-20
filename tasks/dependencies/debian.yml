@@ -20,4 +20,5 @@
     update_cache: yes
     pkg:
     - wireguard
-    # - "linux-headers-{{ ansible_kernel }}"
+    - linux-image-amd64 
+    - linux-headers-amd64
