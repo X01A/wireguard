@@ -3,16 +3,26 @@ sudo: required
 services:
 - docker
 
-script:
-- sudo add-apt-repository ppa:wireguard/wireguard -y
-- sudo apt-get update
-- sudo apt-get install wireguard-dkms wireguard-tools linux-headers-$(uname -r)
+jobs:
+  include:
+    - stage: Lint
+      name: "Lint source files"
+      script:
+        - sudo pip install --upgrade ansible-lint
+        - ansible-lint tests/test.yml
 
-- export RUN_ARGS="--rm --privileged -v /lib/modules/:/lib/modules/ -v $(pwd):/etc/ansible/roles/wireguard/"
-- export PLAYBOOK="/etc/ansible/roles/wireguard/tests/test.yml"
+    - stage: Test
+      name: "Debian 9 Test"
+      script:
+      - bash tests/run.sh debian-9
 
-- docker run $RUN_ARGS indexyz/ansible:debian-9 $PLAYBOOK
-- docker run $RUN_ARGS indexyz/ansible:centos-7 $PLAYBOOK
+    - name: "CentOS 7 Test"
+      script:
+      - bash tests/run.sh centos-7
+
+    - name: "ArchLinux Test"
+      script:
+      - bash tests/run.sh archlinux
 
 notifications:
  webhooks: https://galaxy.ansible.com/api/v1/notifications/

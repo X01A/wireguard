@@ -1,0 +1,8 @@
+---
+- name: Install wireguard tools and dkms
+  pacman:
+    name:
+      - wireguard-tools
+      - wireguard-arch
+    state: latest
+    update_cache: yes
