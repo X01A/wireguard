@@ -17,7 +17,6 @@
   retries: 10
   delay: 10
   failed_when: wireguard_module_enabled is failure
-  when: ignore_modprobe is not defined or (not ignore_modprobe)
   tags:
     - wg-install
 

@@ -3,10 +3,6 @@
   pacman:
     name:
       - wireguard-tools
-      - wireguard-arch
+      - wireguard-dkms
     state: latest
     update_cache: yes
-
-- name: Ignore modprobe wireguard
-  set_fact:
-    ignore_modprobe: yes
