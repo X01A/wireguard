@@ -1,5 +1,5 @@
 ---
-- name: Install wireguard tools and dkms
+- name: Install wireguard tools and dkms # noqa 403
   pacman:
     name:
       - wireguard-tools

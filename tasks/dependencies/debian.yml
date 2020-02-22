@@ -14,11 +14,11 @@
       Pin: release a=unstable
       Pin-Priority: 90
 
-- name: Install wireguard and tools
+- name: Install wireguard and tools # noqa 403
   apt:
     state: present
     update_cache: yes
     pkg:
     - wireguard
-    - linux-image-amd64 
+    - linux-image-amd64
     - linux-headers-amd64

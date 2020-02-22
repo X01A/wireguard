@@ -1,5 +1,5 @@
 ---
-- name: Check wg-quick command exsit
+- name: Check wg-quick command exsit # noqa 305 301
   shell: wg-quick help
   register: wg_quick_command
   ignore_errors: yes

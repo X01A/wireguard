@@ -12,21 +12,21 @@
 
 - name: Render template
   template:
-    src: "../templates/interface.conf"
-    dest: "/etc/wireguard/{{interface_name}}.conf"
+    src: interface.conf
+    dest: "/etc/wireguard/{{ interface_name }}.conf"
     mode: 0600
     force: true
   notify: restart wireguard
 
 - name: Register as node
   set_fact:
-    wg_ip: "{{ansible_host}}"
-    wg_port: "{{listen_port}}"
-    wg_public_key: "{{ansible_local.wireguard.public_key}}"
-    wg_inte_ip: "{{inte_ip}}"
+    wg_ip: "{{ ansible_host }}"
+    wg_port: "{{ listen_port }}"
+    wg_public_key: "{{ ansible_local.wireguard.public_key }}"
+    wg_inte_ip: "{{ inte_ip }}"
 
 - name: Add peers to config
   blockinfile:
-    path: "/etc/wireguard/{{interface_name}}.conf"
+    path: "/etc/wireguard/{{ interface_name }}.conf"
     block: "{{ lookup('template', 'templates/peers.conf') }}"
   notify: restart wireguard
