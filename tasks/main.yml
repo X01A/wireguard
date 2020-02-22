@@ -8,10 +8,18 @@
 - name: Flush deps handler
   meta: flush_handlers
 
-- name: Add wireguard module
+
+- name: Enable WireGuard kernel module
   modprobe:
     name: wireguard
     state: present
+  register: wireguard_module_enabled
+  until:  wireguard_module_enabled is succeeded
+  retries: 10
+  delay: 10
+  failed_when: wireguard_module_enabled is failure
+  tags:
+    - wg-install
 
 - import_tasks: assert.yml
   tags:
