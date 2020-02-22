@@ -6,3 +6,7 @@
       - wireguard-arch
     state: latest
     update_cache: yes
+
+- name: Ignore modprobe wireguard
+  set_fact:
+    ignore_modprobe: yes

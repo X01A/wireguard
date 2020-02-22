@@ -8,7 +8,6 @@
 - name: Flush deps handler
   meta: flush_handlers
 
-
 - name: Enable WireGuard kernel module
   modprobe:
     name: wireguard
@@ -18,6 +17,7 @@
   retries: 10
   delay: 10
   failed_when: wireguard_module_enabled is failure
+  when: ignore_modprobe is defined and ignore_modprobe
   tags:
     - wg-install
 
